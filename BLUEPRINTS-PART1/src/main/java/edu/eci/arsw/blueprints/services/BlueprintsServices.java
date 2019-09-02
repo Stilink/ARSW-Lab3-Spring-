@@ -25,7 +25,7 @@ import org.springframework.stereotype.Service;
 public class BlueprintsServices {
    
     @Autowired
-    @Qualifier("inMemoryBlueprintPersistence")
+    @Qualifier("inMemoryBlueprintPersistenceWithRedundancyFiltering")
     BlueprintsPersistence bpp;
     
     public void addNewBlueprint(Blueprint bp) {
@@ -60,7 +60,7 @@ public class BlueprintsServices {
      * @throws BlueprintNotFoundException if the given author doesn't exist
      */
     public Set<Blueprint> getBlueprintsByAuthor(String author) throws BlueprintNotFoundException{
-        throw new UnsupportedOperationException("Not supported yet."); 
+        return bpp.getBluerintsByAuthor(author); 
     }
     
 }

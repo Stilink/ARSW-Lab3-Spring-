@@ -37,7 +37,7 @@ public class Blueprint {
     public String getAuthor() {
         return author;
     }
-    
+
     public List<Point> getPoints() {
         return points;
     }
@@ -48,7 +48,7 @@ public class Blueprint {
 
     @Override
     public String toString() {
-        return "Blueprint{" + "author=" + author + ", name=" + name + '}';
+        return "Blueprint{" + "author=" + author + ", name=" + name + points.toString() +'}';
     }
 
     @Override
