@@ -68,6 +68,7 @@ public class Blueprint {
         if (getClass() != obj.getClass()) {
             return false;
         }
+        
         final Blueprint other = (Blueprint) obj;
         if (!Objects.equals(this.author, other.author)) {
             return false;
@@ -79,7 +80,8 @@ public class Blueprint {
             return false;
         }
         for (int i=0;i<this.points.size();i++){
-            if (this.points.get(i)!=other.points.get(i)){
+            if ( ! this.points.get(i).equals(other.points.get(i))){
+
                 return false;
             }
         }

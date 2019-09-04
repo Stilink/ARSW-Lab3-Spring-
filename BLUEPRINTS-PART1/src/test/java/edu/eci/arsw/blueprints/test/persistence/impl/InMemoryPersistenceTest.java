@@ -10,12 +10,18 @@ import edu.eci.arsw.blueprints.model.Point;
 import edu.eci.arsw.blueprints.persistence.BlueprintNotFoundException;
 import edu.eci.arsw.blueprints.persistence.BlueprintPersistenceException;
 import edu.eci.arsw.blueprints.persistence.impl.InMemoryBlueprintPersistence;
+import edu.eci.arsw.blueprints.services.BlueprintsServices;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import static org.junit.Assert.*;
 
 /**
@@ -65,19 +71,37 @@ public class InMemoryPersistenceTest {
             ibpp.saveBlueprint(bp2);
             fail("An exception was expected after saving a second blueprint with the same name and autor");
         }
-        catch (BlueprintPersistenceException ex){
-            
-        }
-                
-        
+        catch (BlueprintPersistenceException ex){            
+        }                        
     }
+
 
     @Test
 
-    public void redundancyFilterTestGetBluePrint() throws BlueprintPersistenceException, BlueprintNotFoundException {
+    public void getBlueprintByAuthorTest() throws BlueprintNotFoundException{
+        ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
+        BlueprintsServices bps = ac.getBean(BlueprintsServices.class);
 
-        InMemoryBlueprintPersistence ibpp=new InMemoryBlueprintPersistence();
+        Point[] pts1 = new Point[]{new Point(0, 0),new Point(10, 10) ,new Point(40,40)};
+        Blueprint bp1 = new Blueprint("getBluePrint1", "thepaint1", pts1);
+        
+        bps.addNewBlueprint(bp1);
 
+        Point[] pts2=new Point[]{new Point(0, 0),new Point(10, 10)};
+        Blueprint bp2=new Blueprint("getBluePrint1", "thepaint2", pts2);
+
+        bps.addNewBlueprint(bp2);
+
+        Set<Blueprint> set1 = bps.getBlueprintsByAuthor("getBluePrint1");
+        Set<Blueprint> set2 = new HashSet<Blueprint>();
+        
+
+    }
+    
+    @Test
+    public void redundancyFilterTestGetBluePrintTest() throws BlueprintPersistenceException, BlueprintNotFoundException {    
+        ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
+        BlueprintsServices bps = ac.getBean(BlueprintsServices.class);
         Point[] points = new Point[] { new Point(140, 140)
             ,new Point(115, 115)
             ,new Point(115, 115)
@@ -91,17 +115,21 @@ public class InMemoryPersistenceTest {
         Point[] pointFilter = new Point[] { new Point(140, 140)
             ,new Point(115, 115)
             };
-        Blueprint bpFilter =new Blueprint("redundancyFilter", "thepaint", points);
+        Blueprint bpFilter = new Blueprint("redundancyFilter", "thepaint", pointFilter);
 
-        ibpp.saveBlueprint(bp);
-
+        bps.addNewBlueprint(bp);
         
-        assertEquals(ibpp.getBlueprint(bp.getAuthor(), bp.getName()), bpFilter);
+        //System.out.println(bps.getBlueprintFiltered(bp.getAuthor(), bp.getName()).equals(bpFilter));
+        //System.out.println(bpFilter);
+        
+        assertEquals(bps.getBlueprintFiltered(bp.getAuthor(), bp.getName()), bpFilter);
     }
 
-    public void redundancyFilterTestGetBluePrintByAuthor() throws BlueprintPersistenceException, BlueprintNotFoundException {
+    @Test
+    public void redundancyFilterTestGetBluePrintByAuthorTest() throws BlueprintPersistenceException, BlueprintNotFoundException {
 
-        InMemoryBlueprintPersistence ibpp=new InMemoryBlueprintPersistence();
+        ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
+        BlueprintsServices bps = ac.getBean(BlueprintsServices.class);
 
         Point[] points1 = new Point[] { new Point(140, 140)
             ,new Point(115, 115)
@@ -111,9 +139,9 @@ public class InMemoryPersistenceTest {
             ,new Point(115, 115)
             ,new Point(115, 115)
             };
-        Blueprint bp1 =new Blueprint("redundancyFilter", "thepaint1", points1);
+        Blueprint bp1 =new Blueprint("redundancyFilterAuthor", "thepaint1", points1);
         
-        ibpp.saveBlueprint(bp1);
+        bps.addNewBlueprint(bp1);
 
         Point[] points2 = new Point[] { new Point(140, 140)
             ,new Point(115, 115)
@@ -123,9 +151,9 @@ public class InMemoryPersistenceTest {
             ,new Point(115, 115)
             ,new Point(115, 115)
             };
-        Blueprint bp2 =new Blueprint("redundancyFilter", "thepaint2", points2);
+        Blueprint bp2 =new Blueprint("redundancyFilterAuthor", "thepaint2", points2);
         
-        ibpp.saveBlueprint(bp2);
+        bps.addNewBlueprint(bp2);
 
         Point[] points3 = new Point[] { new Point(140, 140)
             ,new Point(140, 140)
@@ -135,38 +163,47 @@ public class InMemoryPersistenceTest {
             ,new Point(130, 130)
             ,new Point(130, 130)
             };
-        Blueprint bp3 =new Blueprint("redundancyFilter", "thepaint3", points3);
+        Blueprint bp3 =new Blueprint("redundancyFilterAuthor", "thepaint3", points3);
         
-        ibpp.saveBlueprint(bp3);
+        bps.addNewBlueprint(bp3);
 
         Point[] pointFilter1 = new Point[] { new Point(140, 140)
             ,new Point(115, 115)
             };
-        Blueprint bpFilter1 =new Blueprint("redundancyFilter", "thepaint1", pointFilter1);
+        Blueprint bpFilter1 =new Blueprint("redundancyFilterAuthor", "thepaint1", pointFilter1);
 
         Point[] pointFilter2 = new Point[] { new Point(140, 140)
             ,new Point(115, 115)
             ,new Point(120, 120)
             ,new Point(115, 115)
             };
-        Blueprint bpFilter2 =new Blueprint("redundancyFilter", "thepaint2", pointFilter2);
+        Blueprint bpFilter2 =new Blueprint("redundancyFilterAuthor", "thepaint2", pointFilter2);
 
         Point[] pointFilter3 = new Point[] { new Point(140, 140)
             ,new Point(120, 120)
             ,new Point(115, 115)
             ,new Point(130, 130)
             };
-        Blueprint bpFilter3 =new Blueprint("redundancyFilter", "thepaint3", pointFilter3);
+        Blueprint bpFilter3 =new Blueprint("redundancyFilterAuthor", "thepaint3", pointFilter3);
         
-        Set setBpFilter = new HashSet<Blueprint>();
+        Set<Blueprint> setBpFilter = new HashSet<Blueprint>();
 
         setBpFilter.add(bpFilter1);
         setBpFilter.add(bpFilter2);
         setBpFilter.add(bpFilter3);
-        
-        
-        
-        //assertEquals(ibpp.getBlueprint(bp.getAuthor(), bp.getName()), bpFilter);
+
+        Set<Blueprint> setbBpFilterResult = bps.getBlueprintsByAuthorFiltered("redundancyFilterAuthor");
+        List<Blueprint> arr1 = new ArrayList<Blueprint>();
+        List<Blueprint> arr2 = new ArrayList<Blueprint>();
+        for(Blueprint bp: setbBpFilterResult){
+            arr1.add(bp);
+        }
+        for(Blueprint bp: setBpFilter){
+            arr2.add(bp);
+        }
+
+        System.out.println(arr1.equals(arr2));
+        assertEquals(arr1,arr2);
     }
 
 

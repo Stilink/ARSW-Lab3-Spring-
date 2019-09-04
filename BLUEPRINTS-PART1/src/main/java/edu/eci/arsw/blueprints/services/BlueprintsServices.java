@@ -24,9 +24,10 @@ import org.springframework.stereotype.Service;
 /**
  *
  * @author hcadavid
+ * @param <bpf>
  */
 @Service
-public class BlueprintsServices {
+public class BlueprintsServices<bpf> {
 
     @Autowired
     @Qualifier("inMemoryBlueprintPersistence")
@@ -38,6 +39,7 @@ public class BlueprintsServices {
 
     public void addNewBlueprint(Blueprint bp) {
         try {
+            System.out.println(bpp);
             bpp.saveBlueprint(bp);
         } catch (BlueprintPersistenceException e) {
             // TODO Auto-generated catch block

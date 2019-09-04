@@ -49,7 +49,7 @@ public class Main {
         } ) ;
         bps.addNewBlueprint(bpForSubsamplingFiltering);
         System.out.println(bps.getBlueprint(bpForSubsamplingFiltering.getAuthor(), bpForSubsamplingFiltering.getName()));
-
+        
 
     }
 }

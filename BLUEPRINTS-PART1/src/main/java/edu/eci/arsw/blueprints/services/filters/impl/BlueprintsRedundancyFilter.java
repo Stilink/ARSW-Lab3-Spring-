@@ -23,7 +23,7 @@ public class BlueprintsRedundancyFilter implements BlueprintsFilter {
             while (pos < points.size() && points.get(i).equals(points.get(pos))) {
                 pos++;
             }
-            i = pos;
+            i = pos-1;
         }
         Point[] np = new Point[newPoints.size()];
         for(int i = 0; i < newPoints.size(); i++) np[i] = newPoints.get(i);
