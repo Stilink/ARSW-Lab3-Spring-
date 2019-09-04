@@ -5,8 +5,6 @@ Willson Melo Merchan
 Jeymar Vega
 
 ## GRAMMAR CHECKER
-#
-#
 ### Parte 1
 # 
 En esta sección se nos pide hacer uso de las anotaciones de Spring para garantizar la injección de dependencias.
@@ -15,14 +13,7 @@ Lo cual se hizo de la siguiente manera.
 ![alt text1](https://github.com/Stilink/ARSW-Lab3-Spring-/blob/master/GRAMMAR-CHECKER/img/Grammar-part-1.PNG)
 ![alt text1](https://github.com/Stilink/ARSW-Lab3-Spring-/blob/master/GRAMMAR-CHECKER/img/Grammar-part-1-spell.PNG)
 #
-#
-#
-#
-#
-#
 ## BLUEPRINTS
-#
-#
 ### Parte 1
 #
 En esta sección del mismo modo que en la primera de la sección pasada, se nos solicita hacer uso de las anotaciones Spring.
@@ -33,14 +24,11 @@ Lo cual se hizo así:
 #
 Aunque no se muestre, también se uso la anotación de componente sobre la clase "InMemoryBlueprintPersistence".
 #
-#
 Por otro lado, se nos solicitaba la implementación de los metodos getBluePrint() y getBlueprintsByAuthor(), lo cual se hizo así:
 #
 ![alt text1](https://github.com/Stilink/ARSW-Lab3-Spring-/blob/master/BLUEPRINTS-PART1/img/Blueprint-part-1-methods.PNG)
 #
 A esto también cabe añadirle que se tuvo que modificar un constructor del objeto Blueprint, pues no estaba guardando correctamente el nombre.
-#
-#
 ### Parte 3
 #
 Para esta sección se nos solicitaba hacer un "filtro" de las consultas. Nuestro primer acercamiento no nos termino de convencer, 
