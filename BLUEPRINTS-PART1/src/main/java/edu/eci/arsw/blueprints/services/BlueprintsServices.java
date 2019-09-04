@@ -25,11 +25,10 @@ import org.springframework.stereotype.Service;
 public class BlueprintsServices {
    
     @Autowired
-    @Qualifier("inMemoryBlueprintPersistenceWithRedundancyFiltering")
+    @Qualifier("inMemoryBlueprintPersistenceWithSubsamplingFiltering")
     BlueprintsPersistence bpp;
     
     public void addNewBlueprint(Blueprint bp) {
-        System.out.println(bpp);
         try {
             bpp.saveBlueprint(bp);
         } catch (BlueprintPersistenceException e) {

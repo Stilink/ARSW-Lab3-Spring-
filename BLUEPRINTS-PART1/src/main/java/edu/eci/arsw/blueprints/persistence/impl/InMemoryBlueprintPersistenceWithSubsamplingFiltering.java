@@ -51,20 +51,34 @@ public class InMemoryBlueprintPersistenceWithSubsamplingFiltering implements Blu
 
     @Override
     public Blueprint getBlueprint(String author, String bprintname) throws BlueprintNotFoundException {
-        return blueprints.get(new Tuple<>(author, bprintname));
+        Blueprint bp = blueprints.get(new Tuple<>(author, bprintname));
+        return filterBlueprint(bp);
     }
 
     @Override
     public Set<Blueprint> getBluerintsByAuthor(String author) throws BlueprintNotFoundException {
         Set<Blueprint> bluePrints = new HashSet<Blueprint>();
         for( Tuple t: blueprints.keySet() ){
-            //System.out.println(t.getElem1().toString() + " " + author);
             if( t.getElem1().toString().equals(author) ){
-                bluePrints.add(blueprints.get(t));
+                Blueprint bp = filterBlueprint(blueprints.get(t));
+                bluePrints.add(bp);
             }
         }
         return bluePrints;
-	}
+    }
+    
+
+    public Blueprint filterBlueprint(Blueprint bp){
+        List<Point> points = bp.getPoints();
+        List<Point> newPoints = new ArrayList<Point>();
+        for (int i = 0; i < points.size(); i++) {
+            if(i%2==0) newPoints.add(points.get(i));
+        }
+        Point[] np = new Point[newPoints.size()];
+        for(int i = 0; i < newPoints.size(); i++) np[i] = newPoints.get(i);
+        Blueprint newBlueprint = new Blueprint(bp.getAuthor(), bp.getName(), np);
+        return newBlueprint;
+    }
 
     
     

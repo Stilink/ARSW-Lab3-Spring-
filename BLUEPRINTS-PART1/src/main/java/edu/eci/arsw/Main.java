@@ -29,15 +29,7 @@ public class Main {
         bps.addNewBlueprint(bp3ListPo);
         //bps.addNewBlueprint(bp3);
         System.out.println(bps.getBlueprintsByAuthor("tes2"));*/
-        Blueprint bp3ListPo2 = new Blueprint( "tes3", "test2", new Point[]{new Point(140, 140),
-            new Point(115, 115)
-            ,new Point(115, 115)
-            ,new Point(115, 115)
-            ,new Point(115, 115)
-            ,new Point(115, 115)
-            ,new Point(115, 115)
-        } ) ; 
-        Blueprint bp3ListPo3 = new Blueprint( "tes3", "testssf2", new Point[]{new Point(140, 140),
+        /*Blueprint bp3ListPo3 = new Blueprint( "tes3", "testssf2", new Point[]{new Point(140, 140),
             new Point(115, 115)
             ,new Point(115, 115)
             ,new Point(115, 115)
@@ -46,8 +38,17 @@ public class Main {
             ,new Point(115, 115)
         } ) ; 
         bps.addNewBlueprint(bp3ListPo2);
-        bps.addNewBlueprint(bp3ListPo3);
-        System.out.println(bps.getBlueprintsByAuthor("tes3"));
+        bps.addNewBlueprint(bp3ListPo3);*/
+        Blueprint bpForSubsamplingFiltering = new Blueprint( "tes3", "test2", new Point[]{new Point(140, 140),
+            new Point(115, 115)
+            ,new Point(116, 116)
+            ,new Point(117, 117)
+            ,new Point(118, 118)
+            ,new Point(119, 119)
+            ,new Point(120, 120)
+        } ) ;
+        bps.addNewBlueprint(bpForSubsamplingFiltering);
+        System.out.println(bps.getBlueprint(bpForSubsamplingFiltering.getAuthor(), bpForSubsamplingFiltering.getName()));
 
 
     }
