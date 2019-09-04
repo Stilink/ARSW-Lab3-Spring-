@@ -94,7 +94,11 @@ public class InMemoryPersistenceTest {
 
         Set<Blueprint> set1 = bps.getBlueprintsByAuthor("getBluePrint1");
         Set<Blueprint> set2 = new HashSet<Blueprint>();
-        
+        set2.add(bp1);
+        set2.add(bp2);
+        //System.out.println(set1.equals(set2));
+
+        assertEquals(set1, set2);
 
     }
     
